@@ -1,0 +1,5 @@
+video,truth,mode,alarm,first_alarm_s,alarm_events,frames
+f.mp4,fire,no temporal,True,0.1,1,20
+f.mp4,fire,temporal voting,True,0.6,1,20
+n.mp4,normal,no temporal,False,,0,15
+n.mp4,normal,temporal voting,False,,0,15

@@ -1,0 +1,63 @@
+# FireSense configuration. Every pipeline parameter lives here.
+# NOTE: class ids must match the dataset. D-Fire uses 0 = smoke, 1 = fire.
+classes: {0: smoke, 1: fire}
+
+paths:
+  data_dir: data/firesense
+  results_dir: results
+  alerts_dir: alerts
+
+preprocess:
+  max_side: 960          # frames larger than this are downscaled (speed)
+  denoise: true          # bilateral filter (edge preserving)
+  white_balance: true    # gentle gray-world (gain limited to 0.8-1.25)
+  clahe: true            # contrast enhancement on LAB lightness
+  clahe_clip: 2.0
+  clahe_grid: 8
+  dehaze: false          # dark-channel-prior dehazing; decided by the ablation study
+  dehaze_patch: 15
+  dehaze_omega: 0.85
+  dehaze_t0: 0.2
+
+detector:
+  weights: models/best.pt
+  imgsz: 640
+  conf: 0.25             # low raw threshold; the final decision uses decision_conf
+  iou: 0.45
+  decision_conf: 0.35    # final confidence needed for a detection to count
+  device: null           # null = auto (GPU if available)
+
+classical:
+  fire_h_max: 35         # HSV hue (OpenCV 0-179): red-orange-yellow
+  fire_s_min: 90
+  fire_v_min: 170
+  fire_crcb_diff: 40     # YCrCb rule: Cr - Cb
+  fire_y_min: 120
+  fire_ratio_sat: 0.02   # 2% of frame in fire colours saturates the colour score
+  smoke_s_max: 70        # smoke is low-saturation grey/white
+  smoke_v_min: 90
+  smoke_v_max: 235
+  smoke_energy_max: 25.0 # local Laplacian energy: smoke is smooth / low-texture
+  smoke_ratio_sat: 0.15
+  motion_thresh: 8
+  min_region_frac: 0.002
+  decision_score: 0.5    # decision threshold for the classical-only baseline
+
+fusion:
+  w_dl: 0.7              # weight of detector confidence
+  w_classical: 0.3       # weight of classical colour/motion/texture cue
+  fire_cue_sat: 0.15
+  smoke_cue_sat: 0.30
+  flicker_sat: 0.3
+
+temporal:
+  window: 10             # frames considered
+  min_hits: 6            # detections needed inside the window to raise the alarm
+  clear_hits: 2          # alarm clears when hits fall to this value (hysteresis)
+
+severity:
+  thresholds: [1.0, 5.0, 15.0]   # % of frame area
+  levels: [Low, Medium, High, Critical]
+
+alerts:
+  cooldown_s: 10

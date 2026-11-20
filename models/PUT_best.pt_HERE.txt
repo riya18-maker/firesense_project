@@ -1,0 +1,2 @@
+Put your trained weights here as best.pt
+(train on Colab with notebooks/colab_train.ipynb, then download best.pt)

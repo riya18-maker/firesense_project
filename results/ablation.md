@@ -1,0 +1,5 @@
+                          config  fire_precision  fire_recall  fire_f1  smoke_precision  smoke_recall  smoke_f1  alarm_precision  alarm_recall  alarm_f1  false_alarm_rate_on_normal  ms_per_image     fps
+                1 Classical only             1.0          1.0      1.0            0.000           0.0     0.000            1.000         0.625     0.769                         0.0        10.780  92.761
+                     2 YOLO only             0.0          0.0      0.0            0.273           1.0     0.429            0.727         1.000     0.842                         1.0         9.711 102.979
+          3 YOLO + preprocessing             0.0          0.0      0.0            0.273           1.0     0.429            0.727         1.000     0.842                         1.0        17.377  57.547
+4 Full hybrid (preproc + fusion)             0.0          0.0      0.0            0.273           1.0     0.429            0.727         1.000     0.842                         1.0        22.494  44.457

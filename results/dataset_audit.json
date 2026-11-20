@@ -1,0 +1,49 @@
+{
+  "audit": {
+    "total_found": 47,
+    "bad_label_lines_removed": 2,
+    "removed_corrupt_image": 1,
+    "removed_duplicate": 6,
+    "kept": 40
+  },
+  "hard_negatives_added": 4,
+  "splits": {
+    "train": {
+      "images": 24,
+      "boxes": {
+        "smoke": 9,
+        "fire": 7
+      },
+      "images_with_class": {
+        "smoke": 8,
+        "fire": 7,
+        "background": 9
+      }
+    },
+    "val": {
+      "images": 5,
+      "boxes": {
+        "fire": 2,
+        "smoke": 1
+      },
+      "images_with_class": {
+        "background": 2,
+        "fire": 2,
+        "smoke": 1
+      }
+    },
+    "test": {
+      "images": 11,
+      "boxes": {
+        "fire": 5,
+        "smoke": 3
+      },
+      "images_with_class": {
+        "fire": 5,
+        "smoke": 3,
+        "background": 3
+      }
+    }
+  },
+  "note": "Duplicates (exact MD5 or identical dHash) removed before splitting; test images processed first."
+}
